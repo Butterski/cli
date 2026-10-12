@@ -44,10 +44,10 @@ github_stars: 3669
 github_updated: "2026-03-09"
 github_created: "2024-02-05"
 github_release: "v0.23.0"
-repo_stars: 3739
-repo_updated: "2026-09-03"
+repo_stars: 3740
+repo_updated: "2026-10-11"
 repo_created: "2024-02-05"
-repo_release: "v0.23.1"
-repo_release_date: "2026-09-03"
+repo_release: "v0.24.0"
+repo_release_date: "2026-10-11"
 comments: []
 ---
