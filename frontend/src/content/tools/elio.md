@@ -33,7 +33,7 @@ tags: [tui, file-manager, previews, rust, cli, file-browser, image-preview, kitt
 logo: "https://avatars.githubusercontent.com/u/275331632?v=4"
 media: "https://elio-fm.github.io/videos/previews.webm"
 repo_stars: 894
-repo_updated: "2026-10-11"
+repo_updated: "2026-10-12"
 repo_created: "2026-03-09"
 repo_release: "v1.13.0"
 repo_release_date: "2026-10-07"
