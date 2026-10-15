@@ -51,4 +51,9 @@ tags:
 media: https://raw.githubusercontent.com/zsuroy/ctty/master/images/ctty.gif
 logo: https://raw.githubusercontent.com/zsuroy/ctty/master/images/logo.svg
 updated: '2026-10-15'
+repo_stars: 251
+repo_updated: "2026-10-13"
+repo_created: "2026-08-13"
+repo_release: "v1.3.2"
+repo_release_date: "2026-10-13"
 ---
