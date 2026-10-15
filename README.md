@@ -326,7 +326,7 @@
 | [iamb](https://iamb.chat) | A Matrix client for Vim addicts | Rust | 1.3k | [Repo](https://github.com/ulyssa/iamb), [Website](https://iamb.chat) |
 | [linecast](https://terminaltrove.com/linecast/) | Weather, tides, the sun, the moon, and maps, in your terminal. The Old Farmer's Almanac meets… | Python | 627 | [Repo](https://github.com/ashuttl/linecast), [Website](https://terminaltrove.com/linecast/) |
 | [macchina](https://crates.io/crates/macchina) | A system information frontend with an emphasis on performance. | Rust | 2k | [Repo](https://github.com/Macchina-CLI/macchina), [Website](https://crates.io/crates/macchina) |
-| [miru](https://blog.vaishnavs.is-a.dev/miru/) | Zooming daemon for wayland | C | 24 | [Repo](https://github.com/Vaishnav-Sabari-Girish/miru), [Website](https://blog.vaishnavs.is-a.dev/miru/) |
+| [miru](https://blog.vaishnavs.is-a.dev/miru/) | Zooming daemon for wayland | C | 24 | [Repo](https://codeberg.org/Vaishnav-Sabari-Girish/miru), [Website](https://blog.vaishnavs.is-a.dev/miru/) |
 | [moji](https://moji.micr.dev/docs) | find and download fonts from the terminal | Go | 257 | [Repo](https://github.com/Microck/moji), [Website](https://moji.micr.dev/docs) |
 | [rclone](https://rclone.org) | "rsync for cloud storage" - Google Drive, S3, Dropbox, Backblaze B2, One Drive, Swift, Hubic,… | Go | 60.3k | [Repo](https://github.com/rclone/rclone), [Website](https://rclone.org) |
 | [sake](https://sakecli.com) | 🤖 task runner for local and remote hosts | Go | 752 | [Repo](https://github.com/alajmo/sake), [Website](https://sakecli.com) |
