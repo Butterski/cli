@@ -36,7 +36,7 @@ tags:
 media: https://github.com/tconbeer/harlequin/raw/main/harlequin.svg
 logo: https://avatars.githubusercontent.com/u/705906?v=4
 updated: '2026-07-10'
-repo_stars: 6460
+repo_stars: 6462
 repo_updated: "2026-10-12"
 repo_created: "2023-05-02"
 repo_release: "v2.16.1"
