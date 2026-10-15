@@ -31,9 +31,9 @@ tags:
 media: https://cli.masoko.net/uploads/byobu/media.png
 logo: https://byobu.org/byobu.svg
 updated: '2026-07-18'
-repo_stars: 1722
-repo_updated: "2026-10-01"
+repo_stars: 1725
+repo_updated: "2026-10-11"
 repo_created: "2013-01-15"
-repo_release: "7.20"
-repo_release_date: "2026-09-29"
+repo_release: "7.21"
+repo_release_date: "2026-10-11"
 ---

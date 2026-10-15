@@ -48,8 +48,8 @@ tags:
 media: https://raw.githubusercontent.com/yetidevworks/reeve/main/screenshot.png
 logo: https://avatars.githubusercontent.com/u/220336074?v=4
 updated: '2026-08-21'
-repo_stars: 92
-repo_updated: "2026-09-30"
+repo_stars: 94
+repo_updated: "2026-10-11"
 repo_created: "2026-06-15"
 repo_release: "v1.1.2"
 repo_release_date: "2026-09-23"

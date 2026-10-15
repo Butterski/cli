@@ -38,8 +38,8 @@ tags:
 media: https://cleecode.marunja.com/assets/demo.gif
 logo: https://cleecode.marunja.com/icon-180.png
 updated: '2026-09-05'
-repo_stars: 86
-repo_updated: "2026-10-05"
+repo_stars: 87
+repo_updated: "2026-10-12"
 repo_created: "2026-07-31"
 repo_release: "v0.30.0"
 repo_release_date: "2026-10-01"

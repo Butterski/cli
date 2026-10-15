@@ -47,9 +47,9 @@ tags:
 media: https://cli.masoko.net/uploads/herdr/media.mp4
 logo: https://herdr.dev/assets/logo.svg
 updated: '2026-07-12'
-repo_stars: 42842
-repo_updated: "2026-10-07"
+repo_stars: 44066
+repo_updated: "2026-10-14"
 repo_created: "2026-03-27"
-repo_release: "v0.9.3"
-repo_release_date: "2026-09-29"
+repo_release: "v0.9.5"
+repo_release_date: "2026-10-14"
 ---
