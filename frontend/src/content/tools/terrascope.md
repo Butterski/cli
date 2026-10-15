@@ -5,14 +5,14 @@ short_description: >-
   Braille-rendered terminal world map with live weather, aircraft, earthquakes,
   and day/night layers.
 description: >-
-  A terminal user interface (TUI) for managing Markdown notes, tasks, and
-  integrated Kanban boards.   
+  An interactive, braille-rendered world map built for the terminal using
+  Python.   
 
-  Supports Obsidian-compatible links, daily note templates, task date tracking,
-  and categories directly from the command line.   
+  Displays real-time geospatial data including live weather, aircraft,
+  earthquakes, and day/night layers.   
 
-  Includes a built-in CLI and Model Context Protocol (MCP) server support for AI
-  agent integrations.
+  Provides a lightweight, key-driven situational awareness tool directly inside
+  your command-line interface.
 repository_url: https://github.com/a-shygun/Terrascope
 website: https://pypi.org/project/terrascope/
 author: a-shygun
