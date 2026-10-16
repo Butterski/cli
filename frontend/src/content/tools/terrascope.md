@@ -44,10 +44,10 @@ media: >-
   https://github.com/a-shygun/Terrascope/raw/main/docs/images/terrascope-ui-promo.gif
 logo: https://avatars.githubusercontent.com/u/70066717?v=4
 updated: '2026-10-15'
-comments: []
 repo_stars: 157
-repo_updated: '2026-10-14'
-repo_created: '2026-09-28'
-repo_release: v0.2.3
-repo_release_date: '2026-10-09'
+repo_updated: "2026-10-14"
+repo_created: "2026-09-28"
+repo_release: "v0.2.3"
+repo_release_date: "2026-10-09"
+comments: []
 ---
