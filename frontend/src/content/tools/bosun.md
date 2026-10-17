@@ -45,8 +45,8 @@ media: https://raw.githubusercontent.com/yetidevworks/bosun/main/screenshot.png
 logo: https://avatars.githubusercontent.com/u/220336074?v=4
 updated: '2026-08-21'
 repo_stars: 46
-repo_updated: "2026-10-06"
+repo_updated: "2026-10-16"
 repo_created: "2026-04-11"
-repo_release: "v2.1.16"
-repo_release_date: "2026-10-06"
+repo_release: "v2.2.0"
+repo_release_date: "2026-10-16"
 ---

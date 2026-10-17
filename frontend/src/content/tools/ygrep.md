@@ -48,7 +48,7 @@ media: https://raw.githubusercontent.com/yetidevworks/ygrep/main/ygrep-screensho
 logo: https://avatars.githubusercontent.com/u/220336074?v=4
 updated: '2026-08-21'
 repo_stars: 61
-repo_updated: "2026-09-15"
+repo_updated: "2026-10-16"
 repo_created: "2025-12-09"
 repo_release: "v4.0.3"
 repo_release_date: "2026-09-15"
