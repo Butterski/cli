@@ -11,7 +11,7 @@
     </tr>
   </table>
 
-[![Tools](https://img.shields.io/badge/tools-236-f74c00)](https://cli.masoko.net)
+[![Tools](https://img.shields.io/badge/tools-237-f74c00)](https://cli.masoko.net)
 [![Website](https://img.shields.io/badge/website-cli.masoko.net-14151a)](https://cli.masoko.net)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](#contributing)
@@ -22,9 +22,9 @@
 
 <!-- TOOLS:START -->
 
-**236 tools** across **16 categories** — browse with screenshots, ratings and comments at [cli.masoko.net](https://cli.masoko.net).
+**237 tools** across **16 categories** — browse with screenshots, ratings and comments at [cli.masoko.net](https://cli.masoko.net).
 
-[File Management](#file-management) (17) · [Shell History](#shell-history) (3) · [Directory Listing](#directory-listing) (13) · [System Monitoring](#system-monitoring) (10) · [Productivity](#productivity) (22) · [Development Tools](#development-tools) (7) · [Networking](#networking) (26) · [Text Editors](#text-editors) (26) · [Media & Entertainment](#media--entertainment) (24) · [Security](#security) (3) · [DevOps & Cloud](#devops--cloud) (14) · [Data Processing](#data-processing) (29) · [Games & Fun](#games--fun) (7) · [AI](#ai) (8) · [Git](#git) (17) · [Utilities & Other](#utilities--other) (10)
+[File Management](#file-management) (17) · [Shell History](#shell-history) (3) · [Directory Listing](#directory-listing) (13) · [System Monitoring](#system-monitoring) (10) · [Productivity](#productivity) (22) · [Development Tools](#development-tools) (7) · [Networking](#networking) (26) · [Text Editors](#text-editors) (27) · [Media & Entertainment](#media--entertainment) (24) · [Security](#security) (3) · [DevOps & Cloud](#devops--cloud) (14) · [Data Processing](#data-processing) (29) · [Games & Fun](#games--fun) (7) · [AI](#ai) (8) · [Git](#git) (17) · [Utilities & Other](#utilities--other) (10)
 
 ### File Management
 
@@ -186,6 +186,7 @@
 | [Shoin](https://github.com/nol00p/Shoin) | A no-clutter terminal Markdown editor. Modal editing, Obsidian-style live formatting, an iA Writer… | Rust | 54 | [Repo](https://github.com/nol00p/Shoin) |
 | [slap](https://github.com/slap-editor/slap) | Sublime-like terminal-based text editor | JavaScript | 6.2k | [Repo](https://github.com/slap-editor/slap) |
 | [toast](https://paradise-runner.github.io/toast/) | a batteries-included, beautiful, in-terminal IDE | Go | 278 | [Repo](https://github.com/paradise-runner/toast), [Website](https://paradise-runner.github.io/toast/) |
+| [tsuzuri](https://tsuzuri-site-eyla.vercel.app/) | Block-based notebook for the terminal. Plain Markdown files, Vim editing, live preview, boards,… | Go | – | [Repo](https://github.com/jaisuriya-11/tsuzuri), [Website](https://tsuzuri-site-eyla.vercel.app/) |
 | [ttt](https://tttedit.dev/) | A terminal text editor IDE. A real alternative to VS Code, Zed, and Sublime that runs in your… | Go | 604 | [Repo](https://github.com/eugenioenko/ttt), [Website](https://tttedit.dev/) |
 | [vim](https://www.vim.org) | Vim is a greatly improved version of the good old UNIX editor Vi. | Vim Script | 41.1k | [Repo](https://github.com/vim/vim), [Website](https://www.vim.org) |
 | [wordgrinder](http://cowlark.com/wordgrinder) | A word processor which gets the hell out of your way and lets you get some work done. | Lua | 1.3k | [Repo](https://github.com/davidgiven/wordgrinder), [Website](http://cowlark.com/wordgrinder) |
