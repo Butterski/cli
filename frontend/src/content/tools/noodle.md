@@ -32,7 +32,7 @@ media: >-
 logo: https://raw.githubusercontent.com/wilfredinni/noodle/main/assets/logo.png
 updated: '2026-07-09'
 repo_stars: 394
-repo_updated: "2026-10-16"
+repo_updated: "2026-10-17"
 repo_created: "2026-06-24"
 repo_release: "v0.10.0"
 repo_release_date: "2026-10-13"

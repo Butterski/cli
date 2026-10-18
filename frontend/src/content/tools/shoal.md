@@ -29,7 +29,7 @@ media: https://cli.masoko.net/uploads/shoal/media.png
 logo: https://avatars.githubusercontent.com/u/149542775?v=4
 updated: '2026-10-15'
 repo_stars: 66
-repo_updated: "2026-10-17"
+repo_updated: "2026-10-18"
 repo_created: "2026-09-16"
 repo_release: "v1.0.0"
 repo_release_date: "2026-09-24"

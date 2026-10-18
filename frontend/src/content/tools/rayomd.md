@@ -36,8 +36,8 @@ tags:
 logo: https://github.com/Butterski/rayomd/raw/master/docs/assets/branding/rayomd.png
 updated: '2026-07-20'
 repo_stars: 19
-repo_updated: "2026-10-16"
+repo_updated: "2026-10-18"
 repo_created: "2026-06-05"
-repo_release: "v4.7.0"
-repo_release_date: "2026-10-14"
+repo_release: "v5.1.0"
+repo_release_date: "2026-10-18"
 ---
