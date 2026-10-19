@@ -57,9 +57,7 @@ installation:
   - method: brew
     command: brew install LambdaBytes/tap/sping
   - method: scoop
-    command: >-
-      scoop bucket add lambdabytes https://github.com/LambdaBytes/scoop-bucket
-      scoop install lambdabytes/sping
+    command: 'scoop bucket add lambdabytes https://github.com/LambdaBytes/scoop-bucket; scoop install lambdabytes/sping'
 platforms:
   - Linux
   - macOS
