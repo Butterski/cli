@@ -50,6 +50,6 @@ updated: '2026-07-21'
 repo_stars: 46703
 repo_updated: "2026-10-20"
 repo_created: "2019-10-03"
-repo_release: "v2.102.0"
-repo_release_date: "2026-09-30"
+repo_release: "v2.102.1"
+repo_release_date: "2026-10-20"
 ---
