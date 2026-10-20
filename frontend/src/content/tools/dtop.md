@@ -45,11 +45,12 @@ tags:
   - rust
   - containers
 media: https://raw.githubusercontent.com/amir20/dtop/master/demo.gif
-logo: https://github.com/amir20/dtop/raw/master/docs/static/dtop-icon.svg
-updated: '2026-07-13'
+logo: https://raw.githubusercontent.com/amir20/dtop/main/docs/static/dtop-icon.svg
+updated: '2026-10-20'
+comments: []
 repo_stars: 1475
-repo_updated: "2026-10-17"
-repo_created: "2025-06-20"
-repo_release: "v0.10.4"
-repo_release_date: "2026-10-17"
+repo_updated: '2026-10-17'
+repo_created: '2025-06-20'
+repo_release: v0.10.4
+repo_release_date: '2026-10-17'
 ---
