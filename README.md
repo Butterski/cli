@@ -11,7 +11,7 @@
     </tr>
   </table>
 
-[![Tools](https://img.shields.io/badge/tools-239-f74c00)](https://cli.masoko.net)
+[![Tools](https://img.shields.io/badge/tools-240-f74c00)](https://cli.masoko.net)
 [![Website](https://img.shields.io/badge/website-cli.masoko.net-14151a)](https://cli.masoko.net)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](#contributing)
@@ -22,9 +22,9 @@
 
 <!-- TOOLS:START -->
 
-**239 tools** across **16 categories** — browse with screenshots, ratings and comments at [cli.masoko.net](https://cli.masoko.net).
+**240 tools** across **16 categories** — browse with screenshots, ratings and comments at [cli.masoko.net](https://cli.masoko.net).
 
-[File Management](#file-management) (17) · [Shell History](#shell-history) (3) · [Directory Listing](#directory-listing) (13) · [System Monitoring](#system-monitoring) (10) · [Productivity](#productivity) (22) · [Development Tools](#development-tools) (7) · [Networking](#networking) (27) · [Text Editors](#text-editors) (27) · [Media & Entertainment](#media--entertainment) (24) · [Security](#security) (3) · [DevOps & Cloud](#devops--cloud) (14) · [Data Processing](#data-processing) (29) · [Games & Fun](#games--fun) (7) · [AI](#ai) (8) · [Git](#git) (18) · [Utilities & Other](#utilities--other) (10)
+[File Management](#file-management) (17) · [Shell History](#shell-history) (3) · [Directory Listing](#directory-listing) (13) · [System Monitoring](#system-monitoring) (10) · [Productivity](#productivity) (22) · [Development Tools](#development-tools) (7) · [Networking](#networking) (27) · [Text Editors](#text-editors) (27) · [Media & Entertainment](#media--entertainment) (24) · [Security](#security) (3) · [DevOps & Cloud](#devops--cloud) (14) · [Data Processing](#data-processing) (29) · [Games & Fun](#games--fun) (7) · [AI](#ai) (8) · [Git](#git) (18) · [Utilities & Other](#utilities--other) (11)
 
 ### File Management
 
@@ -342,6 +342,7 @@
 | [moji](https://moji.micr.dev/docs) | find and download fonts from the terminal | Go | 257 | [Repo](https://github.com/Microck/moji), [Website](https://moji.micr.dev/docs) |
 | [rclone](https://rclone.org) | "rsync for cloud storage" - Google Drive, S3, Dropbox, Backblaze B2, One Drive, Swift, Hubic,… | Go | 60.4k | [Repo](https://github.com/rclone/rclone), [Website](https://rclone.org) |
 | [sake](https://sakecli.com) | 🤖 task runner for local and remote hosts | Go | 752 | [Repo](https://github.com/alajmo/sake), [Website](https://sakecli.com) |
+| [sauva](https://lusingander.github.io/sauva/) | Terminal Unicode Explorer 🪄 | Rust | – | [Repo](https://github.com/lusingander/sauva), [Website](https://lusingander.github.io/sauva/) |
 | [tldr](https://tldr.sh) | Collaborative cheatsheets for console commands 📚. | Markdown | 64k | [Repo](https://github.com/tldr-pages/tldr), [Website](https://tldr.sh) |
 | [undo](https://undo.edaywalid.com) | Undo what the last shell command did to the filesystem | Go | 402 | [Repo](https://github.com/edaywalid/undo), [Website](https://undo.edaywalid.com) |
 
