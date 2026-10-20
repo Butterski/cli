@@ -904,6 +904,28 @@ a.page-num:hover {
 	display: block;
 }
 
+.badge-code summary {
+	display: inline-block;
+	list-style: none;
+	cursor: pointer;
+	color: var(--accent-rust);
+	font-family: var(--font-display);
+	font-size: 0.8rem;
+}
+
+.badge-code summary::-webkit-details-marker {
+	display: none;
+}
+
+.badge-code[open] .when-closed,
+.badge-code:not([open]) .when-open {
+	display: none;
+}
+
+.badge-code summary:hover {
+	text-decoration: underline;
+}
+
 .snippet {
 	margin-top: 0.75rem;
 }
