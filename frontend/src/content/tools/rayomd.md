@@ -2,7 +2,7 @@
 name: rayomd
 category: Data Processing
 short_description: >-
-  Markdown to PDF in about a millisecond: one small native binary, no browser,
+  Markdown to PDF in under a millisecond: one small native binary, no browser,
   LaTeX or Pandoc.
 description: |-
   RayoMD converts Markdown to PDF with its own C++17 parser and layout engine
@@ -10,14 +10,17 @@ description: |-
   runtime to install. The Linux download is 727 KB (852 KB for Windows) and the
   binary needs only libc; the static build needs nothing at all.
 
-  **Fast.** A fresh `rayomd --export` of the repository's `tester.md` takes
-  1.34 ms from start to exit with 3.4 MiB of peak memory, and a running process
-  (`--serve`, `--batch`) exports each further document in 0.16 ms. In the same
-  comparison Pandoc + Typst took 357 ms, md-to-pdf (Chromium) 1,821 ms and
-  Pandoc + XeLaTeX 2,147 ms (RayoMD 5.2.5 on an AMD Ryzen 5 PRO 4650GE,
-  2026-10-20; time to a finished PDF, not identical output). In the screenshot,
-  on the same machine: one note in about 1 ms, eight documents with 100 pages
-  in 5 ms.
+  **Under a millisecond.** A note with a formula, a Mermaid flowchart and
+  highlighted code goes from Markdown to PDF in 0.66 ms, start to exit, as a
+  fresh process of the static Linux build with 3.5 MiB of peak memory
+  (hyperfine, 2,000 runs; the screenshot). A running process (`--serve`,
+  `--batch`) exports each further document in 0.16 ms, and one batch writes
+  eight documents with 100 pages in 5 ms.
+
+  The longer `tester.md` (Unicode text, tables, code, footnotes, formulas) takes
+  1.34 ms, where Pandoc + Typst took 357 ms, md-to-pdf (Chromium) 1,821 ms and
+  Pandoc + XeLaTeX 2,147 ms: RayoMD 5.2.5 on an AMD Ryzen 5 PRO 4650GE,
+  2026-10-20, comparing time to a finished PDF, not identical output.
 
   - GitHub Markdown: tables, task lists, footnotes, alerts, and bookmarks and
     `#anchor` links from headings
