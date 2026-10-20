@@ -39,8 +39,8 @@ tags:
 logo: https://github.com/AppachiTech/suvadu/raw/main/assets/suvadu-logo.svg
 media: https://suvadu.sh/demo/suvadu-search.webm
 repo_stars: 110
-repo_updated: "2026-10-18"
+repo_updated: "2026-10-20"
 repo_created: "2026-02-13"
-repo_release: "v0.5.0"
-repo_release_date: "2026-09-27"
+repo_release: "v0.5.2"
+repo_release_date: "2026-10-20"
 ---

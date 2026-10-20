@@ -51,7 +51,7 @@ media: https://github.com/vmaltarello/whyd/raw/main/docs/screenshots/whyd.gif
 logo: https://github.com/vmaltarello/whyd/raw/main/docs/logo/logo-dark.svg
 updated: '2026-10-17'
 repo_stars: 81
-repo_updated: "2026-10-16"
+repo_updated: "2026-10-20"
 repo_created: "2026-10-09"
 repo_release: "v0.2.0"
 repo_release_date: "2026-10-14"

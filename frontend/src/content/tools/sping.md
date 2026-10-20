@@ -82,5 +82,10 @@ media: >-
 logo: >-
   https://raw.githubusercontent.com/LambdaBytes/sping/HEAD/docs/brand/sping-logo-on-dark.png
 updated: '2026-10-20'
+repo_stars: 116
+repo_updated: "2026-10-19"
+repo_created: "2026-09-30"
+repo_release: "v1.7.1"
+repo_release_date: "2026-10-19"
 comments: []
 ---
