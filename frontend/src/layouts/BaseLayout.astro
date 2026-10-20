@@ -73,6 +73,7 @@ const ldJson = [...jsonLd, breadcrumbLd]
 		{noindex && <meta name="robots" content="noindex, follow" />}
 		{description && <meta name="description" content={description} />}
 		<title>{title}</title>
+		<link rel="alternate" type="application/rss+xml" title="The Terminal Index: new tools" href="/rss.xml" />
 		{!noindex && <link rel="canonical" href={pageUrl} />}
 		<meta property="og:type" content={ogType} />
 		<meta property="og:site_name" content="The Terminal Index" />

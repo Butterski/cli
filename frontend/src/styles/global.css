@@ -893,6 +893,26 @@ a.page-num:hover {
 	padding-right: 3rem;
 }
 
+.badge-preview img {
+	display: block;
+}
+
+.snippet {
+	margin-top: 0.75rem;
+}
+
+.snippet-label {
+	display: block;
+	color: var(--fg-dim);
+	font-size: 0.75rem;
+	margin-bottom: 0.25rem;
+}
+
+.snippet .code code {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
 .copy-btn {
 	position: absolute;
 	top: 50%;
