@@ -11,7 +11,7 @@
     </tr>
   </table>
 
-[![Tools](https://img.shields.io/badge/tools-238-f74c00)](https://cli.masoko.net)
+[![Tools](https://img.shields.io/badge/tools-239-f74c00)](https://cli.masoko.net)
 [![Website](https://img.shields.io/badge/website-cli.masoko.net-14151a)](https://cli.masoko.net)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](#contributing)
@@ -22,9 +22,9 @@
 
 <!-- TOOLS:START -->
 
-**238 tools** across **16 categories** — browse with screenshots, ratings and comments at [cli.masoko.net](https://cli.masoko.net).
+**239 tools** across **16 categories** — browse with screenshots, ratings and comments at [cli.masoko.net](https://cli.masoko.net).
 
-[File Management](#file-management) (17) · [Shell History](#shell-history) (3) · [Directory Listing](#directory-listing) (13) · [System Monitoring](#system-monitoring) (10) · [Productivity](#productivity) (22) · [Development Tools](#development-tools) (7) · [Networking](#networking) (27) · [Text Editors](#text-editors) (27) · [Media & Entertainment](#media--entertainment) (24) · [Security](#security) (3) · [DevOps & Cloud](#devops--cloud) (14) · [Data Processing](#data-processing) (29) · [Games & Fun](#games--fun) (7) · [AI](#ai) (8) · [Git](#git) (17) · [Utilities & Other](#utilities--other) (10)
+[File Management](#file-management) (17) · [Shell History](#shell-history) (3) · [Directory Listing](#directory-listing) (13) · [System Monitoring](#system-monitoring) (10) · [Productivity](#productivity) (22) · [Development Tools](#development-tools) (7) · [Networking](#networking) (27) · [Text Editors](#text-editors) (27) · [Media & Entertainment](#media--entertainment) (24) · [Security](#security) (3) · [DevOps & Cloud](#devops--cloud) (14) · [Data Processing](#data-processing) (29) · [Games & Fun](#games--fun) (7) · [AI](#ai) (8) · [Git](#git) (18) · [Utilities & Other](#utilities--other) (10)
 
 ### File Management
 
@@ -327,6 +327,7 @@
 | [jj](https://jj-vcs.dev) | A Git-compatible VCS that is both simple and powerful | Rust | 32.2k | [Repo](https://github.com/jj-vcs/jj), [Website](https://jj-vcs.dev) |
 | [jjui](https://idursun.github.io/jjui/) | jjui is a TUI designed for interacting with the Jujutsu version control system. | Go | 2.2k | [Repo](https://github.com/idursun/jjui), [Website](https://idursun.github.io/jjui/) |
 | [lazygit](https://lazygit.dev/) | simple terminal UI for git commands | Go | 83.3k | [Repo](https://github.com/jesseduffield/lazygit), [Website](https://lazygit.dev/) |
+| [levi](https://github.com/rsdlt/levi) | The fastest blade for your git history. Fuzzy search for you, plain text for your agents. | Rust | – | [Repo](https://github.com/rsdlt/levi) |
 | [onefetch](https://onefetch.dev) | Command-line Git information tool | Rust | 12.1k | [Repo](https://github.com/o2sh/onefetch), [Website](https://onefetch.dev) |
 
 ### Utilities & Other
