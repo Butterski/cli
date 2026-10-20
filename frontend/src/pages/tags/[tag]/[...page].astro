@@ -1,7 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
-import { sortByUpdated } from '../../../lib/tools';
+import { sortForListing } from '../../../lib/tools';
 import { getReservedSlugs, isRedundantTag } from '../../../lib/tag-filter';
 import { slugify } from '../../../lib/slug';
 import { PAGE_SIZE, MIN_INDEXABLE_LISTINGS } from '../../../lib/config';
@@ -29,7 +29,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 	}
 	return [...tagsBySlug.entries()].flatMap(([slug, tags]) =>
 		paginate(
-			sortByUpdated(tools.filter((tool) => tool.data.tags.some((t) => slugify(t) === slug))),
+			sortForListing(tools.filter((tool) => tool.data.tags.some((t) => slugify(t) === slug))),
 			{
 				params: { tag: slug },
 				props: { tag: tags.join(' / '), reservedSlugs },

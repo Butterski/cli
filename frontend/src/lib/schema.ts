@@ -93,6 +93,7 @@ export const toolSchema = z.object({
 	repo_created: z.string().optional(), // ISO YYYY-MM-DD, repo creation date
 	repo_release: z.string().optional(), // latest release tag name, e.g. "v1.2.3"; falls back to the latest git tag if the repo has no releases
 	repo_release_date: z.string().optional(), // ISO YYYY-MM-DD, publish date of the release (or commit date of the fallback tag)
+	repo_badge: z.boolean().optional(), // true when the repo's README links back to this listing (see lib/badge.ts)
 });
 
 // What the submission form produces: everything except the feedback fields
@@ -106,6 +107,7 @@ export const toolFormSchema = toolSchema.omit({
 	repo_created: true,
 	repo_release: true,
 	repo_release_date: true,
+	repo_badge: true,
 });
 export type ToolFormData = z.infer<typeof toolFormSchema>;
 
@@ -113,7 +115,7 @@ export type ToolFormData = z.infer<typeof toolFormSchema>;
 // collect via the form — the form only ever produces `ToolFormData`.
 export type PreservedToolFields = Pick<
 	z.infer<typeof toolSchema>,
-	'comments' | 'repo_stars' | 'repo_updated' | 'repo_created' | 'repo_release' | 'repo_release_date'
+	'comments' | 'repo_stars' | 'repo_updated' | 'repo_created' | 'repo_release' | 'repo_release_date' | 'repo_badge'
 >;
 
 // Per-category metadata, keyed by slugified category name (see content/categories/*.md).

@@ -1,10 +1,11 @@
 import type { APIRoute } from 'astro';
-import { getSortedTools } from '../../lib/tools';
+import { getCollection } from 'astro:content';
+import { sortByUpdated } from '../../lib/tools';
 
 // Public, static dump of the directory for anyone building on it. User
 // comments are left out; everything else mirrors the tool frontmatter.
 export const GET: APIRoute = async ({ site }) => {
-	const tools = await getSortedTools();
+	const tools = sortByUpdated(await getCollection('tools'));
 	const body = {
 		name: 'The Terminal Index',
 		url: site!.href,

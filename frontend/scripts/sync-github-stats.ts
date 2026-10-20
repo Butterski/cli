@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import { fetchWithRetry, parseRepoUrl, type RepoHost } from './lib/github.ts';
 import { spliceFrontmatterFields } from './lib/frontmatter.ts';
 import { chunk } from './lib/util.ts';
+import { readmeLinksBack } from '../src/lib/badge.ts';
 
 const frontendRoot = path.resolve(import.meta.dirname, '..');
 const toolsDir = path.join(frontendRoot, 'src/content/tools');
@@ -27,6 +28,9 @@ const CODEBERG_CONCURRENCY = 8;
 // unauthenticated (no GITHUB_TOKEN equivalent), so keep concurrency modest.
 const GITLAB_CONCURRENCY = 8;
 
+// README fetches are one REST call per repo on every host.
+const README_CONCURRENCY = 8;
+
 interface RepoStats {
 	stars: number;
 	updated: string; // ISO YYYY-MM-DD, repo's last push date
@@ -41,9 +45,10 @@ interface ToolFile {
 	host: RepoHost;
 	owner: string;
 	repo: string;
+	badge: boolean; // current repo_badge value, kept when the README can't be fetched
 }
 
-const REPO_FIELD_PATTERN = /^repo_(stars|updated|release|release_date|created):/;
+const REPO_FIELD_PATTERN = /^repo_(stars|updated|release|release_date|created|badge):/;
 const COMMENTS_FIELD_PATTERN = /^comments:/;
 
 interface GitHubRepoStats {
@@ -256,6 +261,43 @@ async function fetchGitLabStatsAll(tools: ToolFile[]): Promise<Map<string, RepoS
 	return results;
 }
 
+// Returns the README text, '' when the repo has none, or null when the
+// request failed (so the caller keeps the previous badge state rather than
+// un-verifying a tool over a transient error).
+async function fetchReadme(tool: ToolFile): Promise<string | null> {
+	let res: Response;
+	if (tool.host === 'github') {
+		res = await fetchWithRetry(`https://api.github.com/repos/${tool.owner}/${tool.repo}/readme`, {
+			headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.raw+json' },
+		});
+	} else if (tool.host === 'codeberg') {
+		// Gitea has no "the README, whatever it's called" endpoint; the raw
+		// endpoint reads from the default branch.
+		res = await fetchWithRetry(`https://codeberg.org/api/v1/repos/${tool.owner}/${tool.repo}/raw/README.md`, {});
+	} else {
+		const projectRes = await fetchWithRetry(`https://gitlab.com/api/v4/projects/${encodeURIComponent(`${tool.owner}/${tool.repo}`)}`, {});
+		if (!projectRes.ok) return null;
+		const { readme_url: readmeUrl } = (await projectRes.json()) as { readme_url: string | null };
+		if (!readmeUrl) return '';
+		res = await fetchWithRetry(readmeUrl.replace('/-/blob/', '/-/raw/'), {});
+	}
+	if (res.status === 404) return '';
+	return res.ok ? res.text() : null;
+}
+
+async function fetchBadgeStatusAll(tools: ToolFile[]): Promise<Map<string, boolean>> {
+	const results = new Map<string, boolean>();
+	for (const batch of chunk(tools, README_CONCURRENCY)) {
+		const readmes = await Promise.all(batch.map((tool) => fetchReadme(tool).catch(() => null)));
+		batch.forEach((tool, i) => {
+			const readme = readmes[i];
+			if (readme === null) console.warn(`⚠️  ${tool.file}: could not fetch README, keeping repo_badge as-is`);
+			results.set(tool.file, readme === null ? tool.badge : readmeLinksBack(readme, tool.file.replace(/\.md$/, '')));
+		});
+	}
+	return results;
+}
+
 const files = fs.readdirSync(toolsDir).filter((file) => file.endsWith('.md'));
 
 const toolFiles: ToolFile[] = [];
@@ -271,17 +313,18 @@ for (const file of files) {
 		continue;
 	}
 
-	toolFiles.push({ file, fullPath, host: parsed.host, owner: parsed.owner, repo: parsed.repo });
+	toolFiles.push({ file, fullPath, host: parsed.host, owner: parsed.owner, repo: parsed.repo, badge: data.repo_badge === true });
 }
 
 const githubTools = toolFiles.filter((tool) => tool.host === 'github');
 const codebergTools = toolFiles.filter((tool) => tool.host === 'codeberg');
 const gitlabTools = toolFiles.filter((tool) => tool.host === 'gitlab');
 
-const [githubStats, codebergStats, gitlabStats] = await Promise.all([
+const [githubStats, codebergStats, gitlabStats, badgeStatus] = await Promise.all([
 	fetchGitHubStats(githubTools),
 	fetchCodebergStatsAll(codebergTools),
 	fetchGitLabStatsAll(gitlabTools),
+	fetchBadgeStatusAll(toolFiles),
 ]);
 
 const stats = new Map<string, RepoStats | null>();
@@ -311,13 +354,14 @@ for (const tool of toolFiles) {
 		`repo_created: ${JSON.stringify(repoStats.created)}`,
 		...(repoStats.release ? [`repo_release: ${JSON.stringify(repoStats.release)}`] : []),
 		...(repoStats.releaseDate ? [`repo_release_date: ${JSON.stringify(repoStats.releaseDate)}`] : []),
+		...(badgeStatus.get(tool.file) ? ['repo_badge: true'] : []),
 	];
 
 	const updated = spliceFrontmatterFields(raw, newLines, REPO_FIELD_PATTERN, COMMENTS_FIELD_PATTERN);
 	if (updated !== raw) {
 		fs.writeFileSync(tool.fullPath, updated);
 		updatedCount += 1;
-		console.log(`✅ ${tool.file}: updated (${repoStats.stars}★, ${repoStats.updated}${repoStats.release ? `, ${repoStats.release}${repoStats.releaseDate ? ` (${repoStats.releaseDate})` : ''}` : ''})`);
+		console.log(`✅ ${tool.file}: updated (${repoStats.stars}★, ${repoStats.updated}${repoStats.release ? `, ${repoStats.release}${repoStats.releaseDate ? ` (${repoStats.releaseDate})` : ''}` : ''}${badgeStatus.get(tool.file) ? ', badge ✓' : ''})`);
 	}
 }
 

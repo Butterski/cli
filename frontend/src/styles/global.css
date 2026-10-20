@@ -557,8 +557,15 @@ textarea {
 	font-weight: 700;
 }
 
+.badge-verified {
+	color: var(--accent-green);
+	font-weight: 700;
+}
+
 .badge-stars::before,
-.badge-stars::after {
+.badge-stars::after,
+.badge-verified::before,
+.badge-verified::after {
 	content: '';
 }
 

@@ -9,8 +9,15 @@ export function sortByUpdated(tools: CollectionEntry<'tools'>[]): CollectionEntr
 	});
 }
 
+// Directory listings rank tools whose README carries our badge first (the
+// reward for linking back), then fall back to newest-first. Feeds and the
+// JSON API stay purely chronological via sortByUpdated.
+export function sortForListing(tools: CollectionEntry<'tools'>[]): CollectionEntry<'tools'>[] {
+	return sortByUpdated(tools).sort((a, b) => Number(Boolean(b.data.repo_badge)) - Number(Boolean(a.data.repo_badge)));
+}
+
 export async function getSortedTools(): Promise<CollectionEntry<'tools'>[]> {
-	return sortByUpdated(await getCollection('tools'));
+	return sortForListing(await getCollection('tools'));
 }
 
 // Random same-category tools (excluding `tool` itself), for "related listings"

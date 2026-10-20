@@ -44,7 +44,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add frontend/src/content/tools
-          git commit -m "Sync GitHub stats (stars, last updated, latest release)"
+          git commit -m "Sync GitHub stats (stars, last updated, latest release, badge)"
           git push
           echo "changed=true" >> "$GITHUB_OUTPUT"
 

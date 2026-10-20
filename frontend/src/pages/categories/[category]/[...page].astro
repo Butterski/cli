@@ -2,7 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIES } from '../../../lib/schema';
-import { sortByUpdated } from '../../../lib/tools';
+import { sortForListing } from '../../../lib/tools';
 import { getReservedSlugs } from '../../../lib/tag-filter';
 import { slugify } from '../../../lib/slug';
 import { PAGE_SIZE, MIN_INDEXABLE_LISTINGS } from '../../../lib/config';
@@ -20,7 +20,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 		if (list.length === 0) return [];
 		const slug = slugify(category);
 		const description = categories.find((entry) => entry.id === slug)?.data.description;
-		return paginate(sortByUpdated(list), {
+		return paginate(sortForListing(list), {
 			params: { category: slug },
 			props: { category, description, reservedSlugs },
 			pageSize: PAGE_SIZE,

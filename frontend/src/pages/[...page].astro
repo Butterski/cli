@@ -2,7 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIES } from '../lib/schema';
-import { getSortedTools, sortByUpdated } from '../lib/tools';
+import { getSortedTools, sortForListing } from '../lib/tools';
 import { getReservedSlugs, filterDisplayTags } from '../lib/tag-filter';
 import { PAGE_SIZE, MAX_CARD_TAGS } from '../lib/config';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -19,7 +19,7 @@ const { page } = Astro.props;
 
 // The <select> options and the client-side search index are built from the FULL
 // collection so filtering works across every page, not just this page's slice.
-const allTools = sortByUpdated(await getCollection('tools'));
+const allTools = sortForListing(await getCollection('tools'));
 const languages = [...new Set(allTools.map((tool) => tool.data.language))].sort();
 const usedCategories = new Set(allTools.map((tool) => tool.data.category));
 const categories = CATEGORIES.filter((category) => usedCategories.has(category));
@@ -39,6 +39,7 @@ const searchIndex = allTools.map((tool) => {
 		logo: tool.data.logo ?? null,
 		stars: tool.data.repo_stars ?? null,
 		created: tool.data.repo_created ?? null,
+		verified: Boolean(tool.data.repo_badge),
 		search: `${tool.data.name} ${tool.data.short_description} ${tool.data.tags.join(' ')}`.toLowerCase(),
 	};
 });
@@ -118,6 +119,7 @@ const title = page.currentPage > 1 ? `${SITE_NAME} — Page ${page.currentPage}`
 
 	<script>
 		import { formatAge } from '../lib/repo-age';
+		import { VERIFIED_TITLE } from '../lib/badge';
 
 		interface ToolIndexEntry {
 			id: string;
@@ -129,6 +131,7 @@ const title = page.currentPage > 1 ? `${SITE_NAME} — Page ${page.currentPage}`
 			logo: string | null;
 			stars: number | null;
 			created: string | null;
+			verified: boolean;
 			search: string;
 		}
 
@@ -188,6 +191,13 @@ const title = page.currentPage > 1 ? `${SITE_NAME} — Page ${page.currentPage}`
 
 			const badges = document.createElement('div');
 			badges.className = 'badges';
+			if (tool.verified) {
+				const verifiedBadge = document.createElement('span');
+				verifiedBadge.className = 'badge badge-verified';
+				verifiedBadge.title = VERIFIED_TITLE;
+				verifiedBadge.textContent = '✓ verified';
+				badges.append(verifiedBadge);
+			}
 			if (tool.stars !== null) {
 				const starsBadge = document.createElement('span');
 				starsBadge.className = 'badge badge-stars';
@@ -280,7 +290,7 @@ const title = page.currentPage > 1 ? `${SITE_NAME} — Page ${page.currentPage}`
 				const matchesLanguage = !language || tool.language === language;
 				return matchesQuery && matchesCategory && matchesLanguage;
 			});
-			// The index is already in "recently updated" order; only stars needs a re-sort.
+			// The index is already in listing order (verified, then recently updated); only stars needs a re-sort.
 			if (sortByStars) matches.sort((a, b) => (b.stars ?? -1) - (a.stars ?? -1));
 
 			results.replaceChildren(...matches.map(renderCard));

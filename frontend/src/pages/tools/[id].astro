@@ -7,7 +7,7 @@ import { getRelatedTools } from '../../lib/tools';
 import { getReservedSlugs, filterDisplayTags } from '../../lib/tag-filter';
 import { formatAge } from '../../lib/repo-age';
 import { softwareLd, toolDescription, toolTitle } from '../../lib/seo';
-import { badgeSnippets } from '../../lib/badge';
+import { badgeSnippets, VERIFIED_TITLE } from '../../lib/badge';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ToolCard from '../../components/ToolCard.astro';
 import LanguageIcon from '../../components/LanguageIcon.astro';
@@ -73,6 +73,7 @@ const youTubeId = data.media ? getYouTubeId(data.media) : undefined;
 			<p class="tagline">{data.short_description}</p>
 			<p class="man-meta">
 				{[
+					data.repo_badge && <span class="badge badge-verified" title={VERIFIED_TITLE}>✓ verified</span>,
 					repoStarsLabel && (
 						<span class="badge badge-stars" title={`${repoStars} stars`}>★ {repoStarsLabel}</span>
 					),
@@ -244,7 +245,9 @@ const youTubeId = data.media ? getYouTubeId(data.media) : undefined;
 
 	<section class="man-section">
 		<h2>BADGE</h2>
-		<p>Maintain {data.name}? Show it's listed here in your README.</p>
+		{data.repo_badge
+			? <p><span class="badge-verified">✓ Verified.</span> {data.name}'s README links back to this listing, so it's ranked first in the directory.</p>
+			: <p>Maintain {data.name}? Add this badge to your README: listings that link back are marked verified and ranked first in the directory. It's checked once a day.</p>}
 		<p class="badge-preview">
 			<a href={`/tools/${tool.id}/`}><img src={`/badge/${tool.id}.svg`} alt={`${data.name} on The Terminal Index`} height="20" /></a>
 		</p>
