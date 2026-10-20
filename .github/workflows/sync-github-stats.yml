@@ -33,17 +33,24 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx tsx scripts/sync-github-stats.ts
 
+      # The README's star column comes from the same frontmatter. A push made
+      # with GITHUB_TOKEN doesn't trigger update-readme.yml, so regenerate it
+      # here and ship it in the same commit.
+      - name: Regenerate README
+        working-directory: frontend
+        run: npx tsx scripts/generate-readme.ts
+
       - name: Commit and push if changed
         id: commit
         run: |
-          if git diff --quiet -- frontend/src/content/tools; then
+          if git diff --quiet -- frontend/src/content/tools README.md; then
             echo "No GitHub stats changed."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add frontend/src/content/tools
+          git add frontend/src/content/tools README.md
           git commit -m "Sync GitHub stats (stars, last updated, latest release, badge)"
           git push
           echo "changed=true" >> "$GITHUB_OUTPUT"
