@@ -974,6 +974,12 @@ dd {
 	margin-bottom: 2rem;
 }
 
+.media-embed {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	height: auto;
+}
+
 /* ---------- submit form ---------- */
 
 .form-note {

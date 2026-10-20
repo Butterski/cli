@@ -1,5 +1,5 @@
 import { marked } from 'marked';
-import { getAsciinemaId, getMediaKind } from './media';
+import { getAsciinemaId, getMediaKind, getYouTubeEmbedUrl, getYouTubeId } from './media';
 import { slugify } from './slug';
 import type { UploadableField } from './upload';
 
@@ -96,6 +96,19 @@ function buildMedia(mediaSrc: string | undefined, name: string): HTMLElement | n
 		// blob: URL (uploaded file) never reaches this branch since uploads are
 		// images/video only (see upload.ts's ACCEPTED_MIME_TO_EXT).
 		return el('script', { attrs: { id: `preview-asciicast-${asciinemaId}`, src: `https://asciinema.org/a/${asciinemaId}.js`, 'data-autoplay': 'false', async: 'true' } });
+	}
+	const youTubeId = getYouTubeId(mediaSrc);
+	if (youTubeId) {
+		return el('iframe', {
+			className: 'media media-embed',
+			attrs: {
+				src: getYouTubeEmbedUrl(youTubeId),
+				title: `${name || 'tool'} demo video`,
+				allow: 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+				referrerpolicy: 'strict-origin-when-cross-origin',
+				allowfullscreen: 'true',
+			},
+		});
 	}
 	if (getMediaKind(mediaSrc) === 'video') {
 		return el('video', { className: 'media', attrs: { src: mediaSrc, autoplay: 'true', loop: 'true', muted: 'true', playsinline: 'true', controls: 'true' } });
