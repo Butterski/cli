@@ -5,11 +5,15 @@ import { slugify } from '../../lib/slug';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const tools = await getCollection('tools');
+const descriptions = new Map((await getCollection('categories')).map((entry) => [entry.id, entry.data.description]));
 const counts = new Map<string, number>();
 for (const tool of tools) {
 	counts.set(tool.data.category, (counts.get(tool.data.category) ?? 0) + 1);
 }
-const nonEmptyCategories = CATEGORIES.filter((category) => (counts.get(category) ?? 0) > 0);
+// Biggest categories first; name as a stable tiebreak.
+const nonEmptyCategories = CATEGORIES.filter((category) => (counts.get(category) ?? 0) > 0).sort(
+	(a, b) => counts.get(b)! - counts.get(a)! || a.localeCompare(b),
+);
 ---
 
 <BaseLayout
@@ -27,12 +31,18 @@ const nonEmptyCategories = CATEGORIES.filter((category) => (counts.get(category)
 		</nav>
 	</header>
 
-	<ul class="links">
+	<ul class="dir-grid">
 		{
 			nonEmptyCategories.map((category) => (
 				<li>
 					<a href={`/categories/${slugify(category)}`}>
-						{category} <span class="count">({counts.get(category)})</span>
+						<span class="dir-head">
+							<span class="dir-name">{category}/</span>
+							<span class="count">{counts.get(category)}</span>
+						</span>
+						{descriptions.get(slugify(category)) && (
+							<span class="dir-desc">{descriptions.get(slugify(category))}</span>
+						)}
 					</a>
 				</li>
 			))

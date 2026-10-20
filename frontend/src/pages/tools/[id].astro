@@ -58,15 +58,22 @@ const asciinemaId = data.media ? getAsciinemaId(data.media) : undefined;
 	]}
 >
 	<header class="man-header">
-		<div class="logo-stack">
-			{data.logo && <img src={data.logo} alt={`${data.name} logo`} width="48" height="48" />}
-			{repoStarsLabel && (
-				<span class="badge badge-stars" title={`${repoStars} stars`}>★ {repoStarsLabel}</span>
-			)}
-		</div>
+		{data.logo && <img src={data.logo} alt={`${data.name} logo`} width="64" height="64" />}
 		<div>
 			<h1>{data.name}<span class="num"></span></h1>
 			<p class="tagline">{data.short_description}</p>
+			<p class="man-meta">
+				{[
+					repoStarsLabel && (
+						<span class="badge badge-stars" title={`${repoStars} stars`}>★ {repoStarsLabel}</span>
+					),
+					<span>{data.license}</span>,
+					data.repo_release && <span>{data.repo_release}</span>,
+					<span>{data.language}</span>,
+				]
+					.filter(Boolean)
+					.flatMap((item, i) => (i === 0 ? [item] : [<span class="sep">·</span>, item]))}
+			</p>
 		</div>
 	</header>
 

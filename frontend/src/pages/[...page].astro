@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import { CATEGORIES } from '../lib/schema';
 import { getSortedTools, sortByUpdated } from '../lib/tools';
 import { getReservedSlugs, filterDisplayTags } from '../lib/tag-filter';
-import { PAGE_SIZE } from '../lib/config';
+import { PAGE_SIZE, MAX_CARD_TAGS } from '../lib/config';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ToolCard from '../components/ToolCard.astro';
 import Pagination from '../components/Pagination.astro';
@@ -37,6 +37,7 @@ const searchIndex = allTools.map((tool) => {
 		tags: filterDisplayTags(tool.data.tags, reservedSlugs),
 		logo: tool.data.logo ?? null,
 		stars: tool.data.repo_stars ?? null,
+		created: tool.data.repo_created ?? null,
 		search: `${tool.data.name} ${tool.data.short_description} ${tool.data.tags.join(' ')}`.toLowerCase(),
 	};
 });
@@ -53,14 +54,14 @@ const status =
 	<header class="hero">
 		<h1>The Terminal Index</h1>
 		<p class="tagline">Discover terminal tools, curated by the developers who rely on them.</p>
-		<p class="hero-stats">
-			<span><b>{page.total}</b> tools</span>
-			<span class="sep">·</span>
-			<span><b>{usedCategories.size}</b> categories</span>
-			<span class="sep">·</span>
-			<span><b>{languages.length}</b> languages</span>
-		</p>
-		<div class="hero-actions">
+		<div class="hero-meta">
+			<p class="hero-stats">
+				<span><b>{page.total}</b> tools</span>
+				<span class="sep">·</span>
+				<span><b>{usedCategories.size}</b> categories</span>
+				<span class="sep">·</span>
+				<span><b>{languages.length}</b> languages</span>
+			</p>
 			<nav class="browse-links">
 				<a href="/categories">ls categories/</a>
 				<a href="/tags">ls tags/</a>
@@ -72,7 +73,7 @@ const status =
 	<section id="filters" class="filters">
 		<label class="search-field">
 			<span class="caret" aria-hidden="true">$</span>
-			<input id="search" type="search" placeholder="Search tools…" />
+			<input id="search" type="search" placeholder="Search tools… (press /)" aria-label="Search tools" />
 		</label>
 
 		<select id="category-filter">
@@ -83,6 +84,11 @@ const status =
 		<select id="language-filter">
 			<option value="">All languages</option>
 			{languages.map((language) => <option value={language}>{language}</option>)}
+		</select>
+
+		<select id="sort-filter" aria-label="Sort order">
+			<option value="">Recently updated</option>
+			<option value="stars">Most stars</option>
 		</select>
 	</section>
 
@@ -98,8 +104,11 @@ const status =
 	<Pagination page={page} />
 
 	<script type="application/json" id="tools-index" set:html={indexJson} />
+	<script type="application/json" id="card-config" set:html={JSON.stringify({ maxTags: MAX_CARD_TAGS })} />
 
 	<script>
+		import { formatAge } from '../lib/repo-age';
+
 		interface ToolIndexEntry {
 			id: string;
 			name: string;
@@ -109,12 +118,16 @@ const status =
 			tags: string[];
 			logo: string | null;
 			stars: number | null;
+			created: string | null;
 			search: string;
 		}
 
 		const search = document.getElementById('search') as HTMLInputElement;
 		const categoryFilter = document.getElementById('category-filter') as HTMLSelectElement;
 		const languageFilter = document.getElementById('language-filter') as HTMLSelectElement;
+		const sortFilter = document.getElementById('sort-filter') as HTMLSelectElement;
+		const statusSeg = document.querySelector<HTMLElement>('[data-status]');
+		const defaultStatus = statusSeg?.textContent ?? '';
 		const grid = document.getElementById('tool-grid') as HTMLUListElement;
 		const results = document.getElementById('search-results') as HTMLUListElement;
 		const pagination = document.querySelector('.pagination') as HTMLElement | null;
@@ -122,6 +135,10 @@ const status =
 		const tools = JSON.parse(
 			(document.getElementById('tools-index') as HTMLScriptElement).textContent!,
 		) as ToolIndexEntry[];
+		const { maxTags } = JSON.parse(
+			(document.getElementById('card-config') as HTMLScriptElement).textContent!,
+		) as { maxTags: number };
+		const compactNumber = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
 
 		// keep in sync with ToolCard.astro — builds the same markup from the search index.
 		function renderCard(tool: ToolIndexEntry): HTMLLIElement {
@@ -138,7 +155,7 @@ const status =
 			if (tool.logo) {
 				const img = document.createElement('img');
 				img.src = tool.logo;
-				img.alt = '';
+				img.alt = `${tool.name} logo`;
 				img.width = 44;
 				img.height = 44;
 				nameWrap.append(img);
@@ -165,24 +182,34 @@ const status =
 				const starsBadge = document.createElement('span');
 				starsBadge.className = 'badge badge-stars';
 				starsBadge.title = `${tool.stars} stars`;
-				starsBadge.textContent = `★ ${new Intl.NumberFormat('en-US', {
-					notation: 'compact',
-					maximumFractionDigits: 1,
-				}).format(tool.stars)}`;
+				starsBadge.textContent = `★ ${compactNumber.format(tool.stars)}`;
 				badges.append(starsBadge);
 			}
 			const categoryBadge = document.createElement('span');
 			categoryBadge.className = 'badge';
 			categoryBadge.textContent = tool.category;
 			badges.append(categoryBadge);
+			if (tool.created) {
+				const ageBadge = document.createElement('span');
+				ageBadge.className = 'badge';
+				ageBadge.title = `Created ${tool.created.slice(0, 10)}`;
+				ageBadge.textContent = formatAge(tool.created);
+				badges.append(ageBadge);
+			}
 			a.append(badges);
 
 			const tags = document.createElement('ul');
 			tags.className = 'tags';
-			for (const tag of tool.tags) {
+			for (const tag of tool.tags.slice(0, maxTags)) {
 				const tagLi = document.createElement('li');
 				tagLi.textContent = tag;
 				tags.append(tagLi);
+			}
+			if (tool.tags.length > maxTags) {
+				const moreLi = document.createElement('li');
+				moreLi.className = 'more';
+				moreLi.textContent = `+${tool.tags.length - maxTags}`;
+				tags.append(moreLi);
 			}
 			a.append(tags);
 
@@ -190,11 +217,40 @@ const status =
 			return li;
 		}
 
+		// Mirror the filter state into the query string so results are shareable
+		// and survive Back. replaceState: typing shouldn't flood the history.
+		function syncUrl() {
+			const params = new URLSearchParams();
+			if (search.value.trim()) params.set('q', search.value.trim());
+			if (categoryFilter.value) params.set('category', categoryFilter.value);
+			if (languageFilter.value) params.set('language', languageFilter.value);
+			if (sortFilter.value) params.set('sort', sortFilter.value);
+			const qs = params.toString();
+			history.replaceState(null, '', `${location.pathname}${qs ? `?${qs}` : ''}${location.hash}`);
+		}
+
+		function restoreFromUrl() {
+			const params = new URLSearchParams(location.search);
+			search.value = params.get('q') ?? '';
+			// Assigning an unknown value to a <select> leaves it with no selection, so fall back to "All".
+			for (const [select, key] of [
+				[categoryFilter, 'category'],
+				[languageFilter, 'language'],
+				[sortFilter, 'sort'],
+			] as const) {
+				select.value = params.get(key) ?? '';
+				if (select.selectedIndex === -1) select.value = '';
+			}
+		}
+
 		function applyFilters() {
 			const query = search.value.trim().toLowerCase();
 			const category = categoryFilter.value;
 			const language = languageFilter.value;
-			const filtering = query !== '' || category !== '' || language !== '';
+			const sortByStars = sortFilter.value === 'stars';
+			const filtering = query !== '' || category !== '' || language !== '' || sortByStars;
+
+			syncUrl();
 
 			if (!filtering) {
 				// Default paginated browsing: show this page's static grid + nav.
@@ -203,6 +259,7 @@ const status =
 				results.hidden = true;
 				results.replaceChildren();
 				emptyState.hidden = true;
+				if (statusSeg) statusSeg.textContent = defaultStatus;
 				return;
 			}
 
@@ -213,16 +270,36 @@ const status =
 				const matchesLanguage = !language || tool.language === language;
 				return matchesQuery && matchesCategory && matchesLanguage;
 			});
+			// The index is already in "recently updated" order; only stars needs a re-sort.
+			if (sortByStars) matches.sort((a, b) => (b.stars ?? -1) - (a.stars ?? -1));
 
 			results.replaceChildren(...matches.map(renderCard));
 			grid.hidden = true;
 			if (pagination) pagination.hidden = true;
 			results.hidden = false;
 			emptyState.hidden = matches.length > 0;
+			if (statusSeg) statusSeg.textContent = `${matches.length} match${matches.length === 1 ? '' : 'es'}`;
 		}
 
 		search.addEventListener('input', applyFilters);
 		categoryFilter.addEventListener('change', applyFilters);
 		languageFilter.addEventListener('change', applyFilters);
+		sortFilter.addEventListener('change', applyFilters);
+
+		// vim/less-style "/" to jump to search; Escape leaves it.
+		document.addEventListener('keydown', (event) => {
+			if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey) return;
+			const target = event.target as HTMLElement;
+			if (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return;
+			event.preventDefault();
+			search.focus();
+			search.select();
+		});
+		search.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape') search.blur();
+		});
+
+		restoreFromUrl();
+		if (location.search) applyFilters();
 	</script>
 </BaseLayout>

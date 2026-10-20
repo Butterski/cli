@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { filterDisplayTags } from '../lib/tag-filter';
 import { formatAge } from '../lib/repo-age';
+import { MAX_CARD_TAGS } from '../lib/config';
 
 interface Props {
 	tool: CollectionEntry<'tools'>;
@@ -19,6 +20,8 @@ const repoStarsLabel =
 // Tags that just restate the tool's own category/language are noise — hide
 // them here, but keep the full raw list in data-search below.
 const displayTags = filterDisplayTags(tool.data.tags, reservedSlugs);
+const shownTags = displayTags.slice(0, MAX_CARD_TAGS);
+const hiddenTagCount = displayTags.length - shownTags.length;
 ---
 
 <li
@@ -48,9 +51,10 @@ const displayTags = filterDisplayTags(tool.data.tags, reservedSlugs);
 			)}
 		</div>
 		<ul class="tags">
-			{displayTags.map((tag) => (
+			{shownTags.map((tag) => (
 				<li>{tag}</li>
 			))}
+			{hiddenTagCount > 0 && <li class="more">+{hiddenTagCount}</li>}
 		</ul>
 	</a>
 </li>

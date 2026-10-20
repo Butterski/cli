@@ -26,3 +26,7 @@ export const MIN_INDEXABLE_LISTINGS = 3;
 // Tags per page on the /tags index. Tag links are far lighter than tool
 // cards, so this is much larger than PAGE_SIZE.
 export const TAGS_INDEX_PAGE_SIZE = 50;
+
+// Tags shown on a listing card before collapsing the rest into "+N". The full
+// list stays on the tool page and in the search index.
+export const MAX_CARD_TAGS = 6;

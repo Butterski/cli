@@ -2,8 +2,10 @@
 import { getCollection } from 'astro:content';
 import { slugify } from '../../lib/slug';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageIcon from '../../components/LanguageIcon.astro';
 
 const tools = await getCollection('tools');
+const descriptions = new Map((await getCollection('languages')).map((entry) => [entry.id, entry.data.description]));
 // Group by slug so languages that collide (see languages/[language]/[...page].astro)
 // get one entry whose count matches the page it links to.
 const bySlug = new Map<string, { label: string; toolIds: Set<string> }>();
@@ -16,7 +18,8 @@ for (const tool of tools) {
 }
 const languages = [...bySlug.entries()]
 	.map(([slug, { label, toolIds }]) => ({ slug, label, count: toolIds.size }))
-	.sort((a, b) => a.slug.localeCompare(b.slug));
+	// Biggest languages first, matching /categories; slug as a stable tiebreak.
+	.sort((a, b) => b.count - a.count || a.slug.localeCompare(b.slug));
 ---
 
 <BaseLayout
@@ -34,12 +37,16 @@ const languages = [...bySlug.entries()]
 		</nav>
 	</header>
 
-	<ul class="links">
+	<ul class="dir-grid">
 		{
 			languages.map(({ slug, label, count }) => (
 				<li>
 					<a href={`/languages/${slug}`}>
-						{label} <span class="count">({count})</span>
+						<span class="dir-head">
+							<span class="dir-name"><LanguageIcon language={label} />{label}/</span>
+							<span class="count">{count}</span>
+						</span>
+						{descriptions.get(slug) && <span class="dir-desc">{descriptions.get(slug)}</span>}
 					</a>
 				</li>
 			))
