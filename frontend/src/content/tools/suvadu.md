@@ -1,10 +1,13 @@
 ---
-updated: '2026-07-02'
 name: suvadu
 category: Shell History
-short_description: Shell history replacement with AI agent tracking and MCP server. Built in Rust, 100% local.
-description: |
-  Suvadu replaces your shell history with a SQLite-backed store. Every command gets structured context — exit code, duration, directory, executor, session. AI agents can query it via MCP. 100% local.
+short_description: >-
+  Shell history replacement with AI agent tracking and MCP server. Built in
+  Rust, 100% local.
+description: >-
+  Suvadu replaces your shell history with a SQLite-backed store. Every command
+  gets structured context — exit code, duration, directory, executor, session.
+  AI agents can query it via MCP. 100% local.
 repository_url: https://github.com/AppachiTech/suvadu
 website: https://suvadu.sh
 author: AppachiTech
@@ -36,11 +39,13 @@ tags:
   - command-line
   - open-source
   - ratatui
+media: https://raw.githubusercontent.com/AppachiTech/suvadu/main/demo/hero.gif
 logo: https://github.com/AppachiTech/suvadu/raw/main/assets/suvadu-logo.svg
-media: https://suvadu.sh/demo/suvadu-search.webm
+updated: '2026-10-20'
+comments: []
 repo_stars: 110
-repo_updated: "2026-10-20"
-repo_created: "2026-02-13"
-repo_release: "v0.5.2"
-repo_release_date: "2026-10-20"
+repo_updated: '2026-10-20'
+repo_created: '2026-02-13'
+repo_release: v0.5.2
+repo_release_date: '2026-10-20'
 ---
