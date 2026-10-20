@@ -57,7 +57,9 @@ installation:
   - method: brew
     command: brew install LambdaBytes/tap/sping
   - method: scoop
-    command: 'scoop bucket add lambdabytes https://github.com/LambdaBytes/scoop-bucket; scoop install lambdabytes/sping'
+    command: >-
+      scoop bucket add lambdabytes https://github.com/LambdaBytes/scoop-bucket;
+      scoop install lambdabytes/sping
 platforms:
   - Linux
   - macOS
@@ -78,6 +80,7 @@ tags:
 media: >-
   https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fvf79bg9y56ug4jl83ooi.gif
 logo: >-
-  https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Ftmi85scuca8ezir361bo.jpeg
-updated: '2026-10-18'
+  https://raw.githubusercontent.com/LambdaBytes/sping/HEAD/docs/brand/sping-logo-on-dark.png
+updated: '2026-10-20'
+comments: []
 ---
