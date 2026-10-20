@@ -1,0 +1,23 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import { ALTERNATIVES, resolveGuideTools } from '../../lib/guides';
+import GuidePage from '../../components/GuidePage.astro';
+
+export const getStaticPaths = (async () => {
+	const allTools = await getCollection('tools');
+	return ALTERNATIVES.map((guide) => ({
+		params: { slug: guide.slug },
+		props: {
+			guide,
+			tools: resolveGuideTools(guide, allTools),
+			allTools,
+			related: ALTERNATIVES.filter((other) => other !== guide),
+		},
+	}));
+}) satisfies GetStaticPaths;
+
+const { guide, tools, allTools, related } = Astro.props;
+---
+
+<GuidePage guide={guide} tools={tools} allTools={allTools} section="alternatives" related={related} />

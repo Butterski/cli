@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { COLLECTIONS } from '../../lib/guides';
+import { pageTitle } from '../../lib/seo';
+---
+
+<BaseLayout
+	title={pageTitle('Curated Collections of CLI & TUI Tools')}
+	description={`Hand-picked roundups of terminal tools: ${COLLECTIONS.slice(0, 4).map((guide) => guide.title).join(', ')} and more.`}
+	command="ls collections/"
+	backHref="/"
+	breadcrumb={[{ label: 'collections/' }]}
+>
+	<header class="hero">
+		<h1>Collections</h1>
+		<p class="tagline"># hand-picked roundups across categories</p>
+		<nav class="browse-links">
+			<a href="/alternatives/">ls alternatives/</a>
+			<a href="/categories/">ls categories/</a>
+		</nav>
+	</header>
+
+	<ul class="dir-grid">
+		{
+			COLLECTIONS.map((guide) => (
+				<li>
+					<a href={`/collections/${guide.slug}/`}>
+						<span class="dir-head">
+							<span class="dir-name">{guide.slug}/</span>
+							<span class="count">{guide.tools.length}</span>
+						</span>
+						<span class="dir-desc">{guide.intro}</span>
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</BaseLayout>

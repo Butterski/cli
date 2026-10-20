@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Guide } from '../lib/guides';
+import { getReservedSlugs } from '../lib/tag-filter';
+import { itemListLd, pageTitle } from '../lib/seo';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ToolCard from './ToolCard.astro';
+
+// Shared body of /alternatives/<slug>/ and /collections/<slug>/ — a curated,
+// unpaginated list of tool cards under a short intro.
+interface Props {
+	guide: Guide;
+	tools: CollectionEntry<'tools'>[];
+	allTools: CollectionEntry<'tools'>[];
+	section: 'alternatives' | 'collections';
+	related: Guide[];
+}
+
+const { guide, tools, allTools, section, related } = Astro.props;
+const reservedSlugs = getReservedSlugs(allTools);
+---
+
+<BaseLayout
+	title={pageTitle(guide.title)}
+	description={`${guide.intro} ${tools.length} tools compared, including ${tools.slice(0, 3).map((tool) => tool.data.name).join(', ')}.`}
+	command={`ls ${section}/${guide.slug}`}
+	jsonLd={[itemListLd(tools)]}
+	backHref={`/${section}/`}
+	breadcrumb={[{ label: `${section}/`, href: `/${section}/` }, { label: guide.slug }]}
+>
+	<header class="hero">
+		<h1>{guide.title}</h1>
+		<p class="entity-description">{guide.intro}</p>
+		<p class="tagline"># {tools.length} tools, most-starred first</p>
+	</header>
+
+	<ul id="tool-grid">{tools.map((tool) => <ToolCard tool={tool} reservedSlugs={reservedSlugs} />)}</ul>
+
+	{related.length > 0 && (
+		<section class="man-section man-section-no-hash">
+			<h2>SEE ALSO</h2>
+			<nav class="browse-links guide-links">
+				{related.map((other) => <a href={`/${section}/${other.slug}/`}>{other.title}</a>)}
+			</nav>
+		</section>
+	)}
+</BaseLayout>

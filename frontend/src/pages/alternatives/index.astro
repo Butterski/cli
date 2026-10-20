@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ALTERNATIVES } from '../../lib/guides';
+import { pageTitle } from '../../lib/seo';
+---
+
+<BaseLayout
+	title={pageTitle('Modern Alternatives to Classic Commands')}
+	description={`Modern terminal replacements for ${ALTERNATIVES.slice(0, 6).map((guide) => guide.replaces).join(', ')} and more, compared side by side.`}
+	command="ls alternatives/"
+	backHref="/"
+	breadcrumb={[{ label: 'alternatives/' }]}
+>
+	<header class="hero">
+		<h1>Alternatives</h1>
+		<p class="tagline"># modern replacements for classic commands and apps</p>
+		<nav class="browse-links">
+			<a href="/collections/">ls collections/</a>
+			<a href="/categories/">ls categories/</a>
+		</nav>
+	</header>
+
+	<ul class="dir-grid">
+		{
+			ALTERNATIVES.map((guide) => (
+				<li>
+					<a href={`/alternatives/${guide.slug}/`}>
+						<span class="dir-head">
+							<span class="dir-name">{guide.replaces}</span>
+							<span class="count">{guide.tools.length}</span>
+						</span>
+						<span class="dir-desc">{guide.intro}</span>
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</BaseLayout>

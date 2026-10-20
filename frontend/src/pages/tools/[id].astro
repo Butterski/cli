@@ -8,6 +8,7 @@ import { getReservedSlugs, filterDisplayTags } from '../../lib/tag-filter';
 import { formatAge } from '../../lib/repo-age';
 import { softwareLd, toolDescription, toolTitle } from '../../lib/seo';
 import { badgeSnippets, VERIFIED_TITLE } from '../../lib/badge';
+import { guidesForTool } from '../../lib/guides';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ToolCard from '../../components/ToolCard.astro';
 import LanguageIcon from '../../components/LanguageIcon.astro';
@@ -45,6 +46,8 @@ if (data.website) {
 		faviconUrl = ''; // malformed URL → no icon
 	}
 }
+
+const seeAlso = guidesForTool(tool.id);
 
 const badge = badgeSnippets(Astro.site!, tool.id, data.name);
 
@@ -242,6 +245,20 @@ const youTubeId = data.media ? getYouTubeId(data.media) : undefined;
 			))}
 		</ul>
 	</section>
+
+	{(seeAlso.alternatives.length > 0 || seeAlso.collections.length > 0) && (
+		<section class="man-section">
+			<h2>SEE ALSO</h2>
+			<ul class="see-also">
+				{seeAlso.alternatives.map((guide) => (
+					<li>{data.name} is a modern alternative to <a href={`/alternatives/${guide.slug}/`}>{guide.replaces}</a></li>
+				))}
+				{seeAlso.collections.map((guide) => (
+					<li>Featured in <a href={`/collections/${guide.slug}/`}>{guide.title}</a></li>
+				))}
+			</ul>
+		</section>
+	)}
 
 	<section class="man-section">
 		<h2>BADGE</h2>

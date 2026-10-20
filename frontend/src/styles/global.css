@@ -388,6 +388,22 @@ textarea {
 	text-decoration: none;
 }
 
+/* Guide titles are full sentences, too long to keep on one line. */
+.guide-links a {
+	white-space: normal;
+}
+
+.see-also {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	color: var(--fg-dim);
+}
+
+.see-also li + li {
+	margin-top: 0.25rem;
+}
+
 /* ---------- filters ---------- */
 
 .filters {
