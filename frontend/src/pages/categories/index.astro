@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { CATEGORIES } from '../../lib/schema';
 import { slugify } from '../../lib/slug';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { pageTitle } from '../../lib/seo';
 
 const tools = await getCollection('tools');
 const descriptions = new Map((await getCollection('categories')).map((entry) => [entry.id, entry.data.description]));
@@ -17,7 +18,8 @@ const nonEmptyCategories = CATEGORIES.filter((category) => (counts.get(category)
 ---
 
 <BaseLayout
-	title="Categories — The Terminal Index"
+	title={pageTitle('Browse CLI Tools by Category')}
+	description={`Browse ${tools.length} terminal tools across ${nonEmptyCategories.length} categories: ${nonEmptyCategories.slice(0, 5).join(', ')} and more.`}
 	command="ls categories/"
 	backHref="/"
 	breadcrumb={[{ label: 'categories/' }]}
@@ -26,8 +28,8 @@ const nonEmptyCategories = CATEGORIES.filter((category) => (counts.get(category)
 		<h1>Categories</h1>
 		<p class="tagline"># browse tools grouped by category</p>
 		<nav class="browse-links">
-			<a href="/tags">ls tags/</a>
-			<a href="/languages">ls languages/</a>
+			<a href="/tags/">ls tags/</a>
+			<a href="/languages/">ls languages/</a>
 		</nav>
 	</header>
 
@@ -35,7 +37,7 @@ const nonEmptyCategories = CATEGORIES.filter((category) => (counts.get(category)
 		{
 			nonEmptyCategories.map((category) => (
 				<li>
-					<a href={`/categories/${slugify(category)}`}>
+					<a href={`/categories/${slugify(category)}/`}>
 						<span class="dir-head">
 							<span class="dir-name">{category}/</span>
 							<span class="count">{counts.get(category)}</span>

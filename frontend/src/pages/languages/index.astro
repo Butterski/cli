@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { slugify } from '../../lib/slug';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LanguageIcon from '../../components/LanguageIcon.astro';
+import { pageTitle } from '../../lib/seo';
 
 const tools = await getCollection('tools');
 const descriptions = new Map((await getCollection('languages')).map((entry) => [entry.id, entry.data.description]));
@@ -23,7 +24,11 @@ const languages = [...bySlug.entries()]
 ---
 
 <BaseLayout
-	title="Languages — The Terminal Index"
+	title={pageTitle('Browse CLI Tools by Language')}
+	description={`Browse ${tools.length} terminal tools by the language they're written in: ${languages
+		.slice(0, 5)
+		.map((l) => l.label)
+		.join(', ')} and more.`}
 	command="ls languages/"
 	backHref="/"
 	breadcrumb={[{ label: 'languages/' }]}
@@ -32,8 +37,8 @@ const languages = [...bySlug.entries()]
 		<h1>Languages</h1>
 		<p class="tagline"># browse tools by language</p>
 		<nav class="browse-links">
-			<a href="/categories">ls categories/</a>
-			<a href="/tags">ls tags/</a>
+			<a href="/categories/">ls categories/</a>
+			<a href="/tags/">ls tags/</a>
 		</nav>
 	</header>
 
@@ -41,7 +46,7 @@ const languages = [...bySlug.entries()]
 		{
 			languages.map(({ slug, label, count }) => (
 				<li>
-					<a href={`/languages/${slug}`}>
+					<a href={`/languages/${slug}/`}>
 						<span class="dir-head">
 							<span class="dir-name"><LanguageIcon language={label} />{label}/</span>
 							<span class="count">{count}</span>

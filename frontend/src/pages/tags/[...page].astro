@@ -6,6 +6,7 @@ import { getReservedSlugs, isRedundantTag } from '../../lib/tag-filter';
 import { TAGS_INDEX_PAGE_SIZE } from '../../lib/config';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Pagination from '../../components/Pagination.astro';
+import { pageTitle, pagedDescription } from '../../lib/seo';
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const tools = await getCollection('tools');
@@ -38,7 +39,15 @@ const status = page.lastPage > 1 ? `page ${page.currentPage}/${page.lastPage}` :
 ---
 
 <BaseLayout
-	title="Tags — The Terminal Index"
+	title={pageTitle('Browse CLI Tools by Tag', page.currentPage)}
+	description={pagedDescription(
+		`Browse ${page.total} tags across the terminal tools in The Terminal Index — from ${page.data
+			.slice(0, 4)
+			.map((t) => t.label.split(' / ')[0])
+			.join(', ')} to niche topics.`,
+		page.currentPage,
+		page.lastPage,
+	)}
 	command="ls tags/"
 	backHref="/"
 	status={status}
@@ -48,8 +57,8 @@ const status = page.lastPage > 1 ? `page ${page.currentPage}/${page.lastPage}` :
 		<h1>Tags</h1>
 		<p class="tagline"># browse tools by tag</p>
 		<nav class="browse-links">
-			<a href="/categories">ls categories/</a>
-			<a href="/languages">ls languages/</a>
+			<a href="/categories/">ls categories/</a>
+			<a href="/languages/">ls languages/</a>
 		</nav>
 	</header>
 
@@ -57,7 +66,7 @@ const status = page.lastPage > 1 ? `page ${page.currentPage}/${page.lastPage}` :
 		{
 			page.data.map(({ slug, label, count }) => (
 				<li>
-					<a href={`/tags/${slug}`}>
+					<a href={`/tags/${slug}/`}>
 						#{label} <span class="count">({count})</span>
 					</a>
 				</li>

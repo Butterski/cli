@@ -13,9 +13,10 @@ const { data } = tool;
 ---
 
 <BaseLayout
-	title={`Edit ${data.name} — CLI Tools Directory`}
+	title={`Edit ${data.name} — The Terminal Index`}
+	noindex
 	command={`man ${tool.id} --edit`}
-	backHref={`/tools/${tool.id}`}
+	backHref={`/tools/${tool.id}/`}
 >
 	<h1>Edit {data.name}</h1>
 	<p class="form-note">Sign in with GitHub to propose an edit. Submitting opens a pull request from your own fork.</p>

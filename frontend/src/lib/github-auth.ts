@@ -22,7 +22,7 @@ export type CallbackResult = { ok: true; returnTo: string } | { ok: false; error
 export async function handleOAuthCallback(): Promise<CallbackResult> {
 	const params = new URLSearchParams(window.location.search);
 	const expectedState = sessionStorage.getItem(STATE_KEY);
-	const returnTo = sessionStorage.getItem(RETURN_TO_KEY) ?? '/submit';
+	const returnTo = sessionStorage.getItem(RETURN_TO_KEY) ?? '/submit/';
 	sessionStorage.removeItem(STATE_KEY);
 	sessionStorage.removeItem(RETURN_TO_KEY);
 

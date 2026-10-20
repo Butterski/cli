@@ -30,8 +30,9 @@ const { language, slug, description } = Astro.props;
 
 <BaseLayout
 	title={`Edit ${language} — The Terminal Index`}
+	noindex
 	command={`man languages/${slug} --edit`}
-	backHref={`/languages/${slug}`}
+	backHref={`/languages/${slug}/`}
 >
 	<h1>Edit {language}</h1>
 	<p class="form-note">Sign in with GitHub to propose an edit. Submitting opens a pull request from your own fork.</p>

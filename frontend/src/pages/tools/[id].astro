@@ -6,6 +6,7 @@ import { slugify } from '../../lib/slug';
 import { getRelatedTools } from '../../lib/tools';
 import { getReservedSlugs, filterDisplayTags } from '../../lib/tag-filter';
 import { formatAge } from '../../lib/repo-age';
+import { softwareLd, toolDescription, toolTitle } from '../../lib/seo';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ToolCard from '../../components/ToolCard.astro';
 import LanguageIcon from '../../components/LanguageIcon.astro';
@@ -48,12 +49,16 @@ const asciinemaId = data.media ? getAsciinemaId(data.media) : undefined;
 ---
 
 <BaseLayout
-	title={`${data.name} — The Terminal Index`}
+	title={toolTitle(data.name, data.short_description)}
+	description={toolDescription(tool)}
+	ogImage={`/og/tools/${tool.id}.png`}
+	ogType="article"
+	jsonLd={[softwareLd(tool)]}
 	command={`man ${tool.id}`}
-	editHref={`/tools/${tool.id}/edit`}
+	editHref={`/tools/${tool.id}/edit/`}
 	backHref="/"
 	breadcrumb={[
-		{ label: slugify(data.category), href: `/categories/${slugify(data.category)}` },
+		{ label: slugify(data.category), href: `/categories/${slugify(data.category)}/` },
 		{ label: tool.id },
 	]}
 >
@@ -188,10 +193,10 @@ const asciinemaId = data.media ? getAsciinemaId(data.media) : undefined;
 			<dd>{data.license}</dd>
 
 			<dt>Category</dt>
-			<dd><a href={`/categories/${slugify(data.category)}`}>{data.category}</a></dd>
+			<dd><a href={`/categories/${slugify(data.category)}/`}>{data.category}</a></dd>
 
 			<dt>Language</dt>
-			<dd><a class="lang-link" href={`/languages/${slugify(data.language)}`}><LanguageIcon language={data.language} /> <span class="lang-label">{data.language}</span></a></dd>
+			<dd><a class="lang-link" href={`/languages/${slugify(data.language)}/`}><LanguageIcon language={data.language} /> <span class="lang-label">{data.language}</span></a></dd>
 
 			<dt>Platforms</dt>
 			<dd>{data.platforms.join(', ')}</dd>
@@ -217,7 +222,7 @@ const asciinemaId = data.media ? getAsciinemaId(data.media) : undefined;
 		<ul class="tags">
 			{filterDisplayTags(data.tags, reservedSlugs).map((tag) => (
 				<li>
-					<a href={`/tags/${slugify(tag)}`}>{tag}</a>
+					<a href={`/tags/${slugify(tag)}/`}>{tag}</a>
 				</li>
 			))}
 		</ul>

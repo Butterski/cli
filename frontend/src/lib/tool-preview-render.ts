@@ -228,7 +228,7 @@ function buildDetails(candidate: PreviewCandidate): HTMLElement {
 
 	const category = str(candidate.category);
 	if (category) {
-		const link = el('a', { text: category, attrs: { href: `/categories/${slugify(category)}` } });
+		const link = el('a', { text: category, attrs: { href: `/categories/${slugify(category)}/` } });
 		detailRow(dl, 'Category', link);
 	} else {
 		detailRow(dl, 'Category', undefined);

@@ -38,5 +38,6 @@ Shared helpers used by the scripts above:
 - `lib/github.ts` — `parseRepoUrl()` (GitHub/Codeberg URL parsing) and `fetchWithRetry()` (retries on 403/429/5xx, honoring `Retry-After`/rate-limit headers).
 - `lib/frontmatter.ts` — in-place frontmatter field rewriting that avoids a full YAML round-trip, keeping diffs limited to the fields actually changed.
 - `lib/util.ts` — generic `chunk()` for batching.
-- `lib/load-tool.ts` — reads and schema-validates a single tool/category `.md` file.
+- `lib/load-tool.ts` — reads and schema-validates a single tool/category `.md` file; `loadAllTools()` loads every tool with its id.
 - `lib/thin-listings.ts` — not CI/cron; imported directly by `astro.config.mjs` at build time.
+- `lib/sitemap-lastmod.ts` — not CI/cron; imported by `astro.config.mjs` to set sitemap `<lastmod>` from tools' `updated` dates.

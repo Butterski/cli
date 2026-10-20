@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'node:path';
 import matter from 'gray-matter';
 import type { z } from 'zod';
 import { categorySchema, toolSchema } from '../../src/lib/schema.ts';
@@ -30,4 +31,19 @@ export function parseToolFile(fullPath: string): { tool: Tool } | { issues: stri
 export function parseCategoryFile(fullPath: string): { category: Category } | { issues: string[] } {
 	const result = parseFrontmatter(fullPath, categorySchema);
 	return 'issues' in result ? result : { category: result.data };
+}
+
+const TOOLS_DIR = path.resolve(import.meta.dirname, '../../src/content/tools');
+
+// Every valid tool in src/content/tools, keyed by its file id (the same id the
+// Astro glob loader gives the entry, i.e. the /tools/<id>/ slug). Invalid
+// files are skipped — the build itself reports those.
+export function loadAllTools(): { id: string; tool: Tool }[] {
+	return fs
+		.readdirSync(TOOLS_DIR)
+		.filter((file) => file.endsWith('.md'))
+		.flatMap((file) => {
+			const result = parseToolFile(path.join(TOOLS_DIR, file));
+			return 'tool' in result ? [{ id: file.slice(0, -'.md'.length), tool: result.tool }] : [];
+		});
 }

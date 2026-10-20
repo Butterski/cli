@@ -8,6 +8,7 @@ import { PAGE_SIZE, MAX_CARD_TAGS } from '../lib/config';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ToolCard from '../components/ToolCard.astro';
 import Pagination from '../components/Pagination.astro';
+import { SITE_NAME, itemListLd, pagedDescription, websiteLd } from '../lib/seo';
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const tools = await getSortedTools();
@@ -48,9 +49,18 @@ const status =
 	page.lastPage > 1
 		? `page ${page.currentPage}/${page.lastPage} · ${page.total} tools`
 		: `${page.total} tools indexed`;
+
+const siteDescription = `Discover ${page.total} terminal tools, curated by the developers who rely on them. Browse open-source CLI and TUI apps by category, language and tag.`;
+const title = page.currentPage > 1 ? `${SITE_NAME} — Page ${page.currentPage}` : `${SITE_NAME} — Curated CLI & TUI Tools`;
 ---
 
-<BaseLayout title="The Terminal Index" command="browse --all" status={status}>
+<BaseLayout
+	title={title}
+	description={pagedDescription(siteDescription, page.currentPage, page.lastPage)}
+	jsonLd={[...(page.currentPage === 1 ? [websiteLd(siteDescription)] : []), itemListLd(page.data, page.start)]}
+	command="browse --all"
+	status={status}
+>
 	<header class="hero">
 		<h1>The Terminal Index</h1>
 		<p class="tagline">Discover terminal tools, curated by the developers who rely on them.</p>
@@ -63,9 +73,9 @@ const status =
 				<span><b>{languages.length}</b> languages</span>
 			</p>
 			<nav class="browse-links">
-				<a href="/categories">ls categories/</a>
-				<a href="/tags">ls tags/</a>
-				<a href="/languages">ls languages/</a>
+				<a href="/categories/">ls categories/</a>
+				<a href="/tags/">ls tags/</a>
+				<a href="/languages/">ls languages/</a>
 			</nav>
 		</div>
 	</header>
@@ -148,7 +158,7 @@ const status =
 			li.dataset.language = tool.language;
 
 			const a = document.createElement('a');
-			a.href = `/tools/${tool.id}`;
+			a.href = `/tools/${tool.id}/`;
 
 			const nameWrap = document.createElement('div');
 			nameWrap.className = 'tool-name';

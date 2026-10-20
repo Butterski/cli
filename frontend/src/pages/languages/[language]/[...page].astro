@@ -8,6 +8,7 @@ import { PAGE_SIZE, MIN_INDEXABLE_LISTINGS } from '../../../lib/config';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ToolCard from '../../../components/ToolCard.astro';
 import Pagination from '../../../components/Pagination.astro';
+import { itemListLd, pageTitle, pagedDescription, sampleNames } from '../../../lib/seo';
 import LanguageIcon from '../../../components/LanguageIcon.astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
@@ -40,11 +41,16 @@ const { page, language, description, reservedSlugs } = Astro.props;
 ---
 
 <BaseLayout
-	title={`${language} — The Terminal Index`}
+	title={pageTitle(`CLI Tools Written in ${language}`, page.currentPage)}
 	command={`ls languages/${slugify(language)}`}
-	description={description}
-	backHref="/languages"
-	editHref={`/languages/${slugify(language)}/edit`}
+	description={pagedDescription(
+		description ?? `${page.total} command-line tools written in ${language}, including ${sampleNames(page.data)}.`,
+		page.currentPage,
+		page.lastPage,
+	)}
+	jsonLd={[itemListLd(page.data, page.start)]}
+	backHref="/languages/"
+	editHref={`/languages/${slugify(language)}/edit/`}
 	noindex={page.total < MIN_INDEXABLE_LISTINGS}
 	breadcrumb={[{ label: `${slugify(language)}/` }]}
 >

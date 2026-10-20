@@ -1,10 +1,6 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import { parseToolFile } from './load-tool.ts';
+import { loadAllTools } from './load-tool.ts';
 import { MIN_INDEXABLE_LISTINGS } from '../../src/lib/config.ts';
 import { slugify } from '../../src/lib/slug.ts';
-
-const TOOLS_DIR = path.resolve(import.meta.dirname, '../../src/content/tools');
 
 // Runs outside Astro's content layer (astro.config.mjs loads before it's
 // initialized), so tool files are read directly instead of via
@@ -12,11 +8,7 @@ const TOOLS_DIR = path.resolve(import.meta.dirname, '../../src/content/tools');
 // used by the tags/categories/languages [...page].astro routes, so a
 // listing's thin/indexable status here always matches its page.total there.
 export function getThinListingPaths(): string[] {
-	const tools = fs
-		.readdirSync(TOOLS_DIR)
-		.filter((file) => file.endsWith('.md'))
-		.map((file) => parseToolFile(path.join(TOOLS_DIR, file)))
-		.flatMap((result) => ('tool' in result ? [result.tool] : []));
+	const tools = loadAllTools().map(({ tool }) => tool);
 
 	const thinPaths: string[] = [];
 

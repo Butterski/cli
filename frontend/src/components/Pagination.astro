@@ -14,7 +14,7 @@ const { currentPage, lastPage } = page;
 // nested routes ('/categories/cli').
 const stripped = page.url.current.replace(new RegExp(`/${currentPage}/?$`), '');
 const base = stripped === '/' ? '' : stripped.replace(/\/$/, '');
-const href = (n: number) => (n === 1 ? base || '/' : `${base}/${n}`);
+const href = (n: number) => (n === 1 ? `${base}/` : `${base}/${n}/`);
 
 type PageEntry = number | '...';
 
